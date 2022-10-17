@@ -22,14 +22,12 @@ function MyApp({
   emotionCache = clientSideEmotionCache,
 }: MyAppProps) {
   return (
-    <CacheProvider value={emotionCache}>
-      <ThemeProvider theme={lightTheme}>
-        <CssBaseline />
-        <Provider store={store}>
-          <Component {...pageProps} />
-        </Provider>
-      </ThemeProvider>
-    </CacheProvider>
+    <ThemeProvider theme={lightTheme}>
+      <CssBaseline />
+      <Provider store={store}>
+        <Component {...pageProps} />
+      </Provider>
+    </ThemeProvider>
   );
 }
 
