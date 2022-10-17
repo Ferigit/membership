@@ -15,6 +15,9 @@ const useStyles = makeStyles((theme: any) => ({
     fontSize: 14,
     marginLeft: 4,
   },
+  formContainer: {
+    width: 300,
+  },
 }));
 
 interface FormValues {
@@ -46,44 +49,54 @@ export default function Form({
   };
 
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={(
-        values: FormValues,
-        formikHelpers: FormikHelpers<FormValues>
-      ) => {
-        alert(JSON.stringify(values, null, 2));
-        formikHelpers.setSubmitting(false);
-      }}
-    >
-      {(formikProps: FormikProps<FormValues>) => (
-        <FormikForm noValidate autoComplete="off">
-          <Grid container spacing={2}>
-            {formData.map((field: any) => {
-              const { name, label = "", size, type, icon, placeholder } = field;
-              return (
-                <Grid item xs={12}>
-                  <Field
-                    name={name}
-                    label={label}
-                    size={size}
-                    type={type}
-                    icon={icon}
-                    placeholder={placeholder}
-                    {...(type !== "checkbox" && { component: fieldMaps[type] })}
-                    // ...({type!=='checkbox' && {component: fieldMaps[type]}})
-                    // component={fieldMaps[type]}
-                  />
-                  {type === "checkbox" && (
-                    <label className={classes.label}>{label}</label>
-                  )}
-                </Grid>
-              );
-            })}
-            <Grid item xs={12}>
-              <Button label={submitLabel} />
-              {/* <Button
+    <div className={classes.formContainer}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={(
+          values: FormValues,
+          formikHelpers: FormikHelpers<FormValues>
+        ) => {
+          alert(JSON.stringify(values, null, 2));
+          formikHelpers.setSubmitting(false);
+        }}
+      >
+        {(formikProps: FormikProps<FormValues>) => (
+          <FormikForm noValidate autoComplete="off">
+            <Grid container spacing={2}>
+              {formData.map((field: any) => {
+                const {
+                  name,
+                  label = "",
+                  size,
+                  type,
+                  icon,
+                  placeholder,
+                } = field;
+                return (
+                  <Grid item xs={12}>
+                    <Field
+                      name={name}
+                      label={label}
+                      size={size}
+                      type={type}
+                      icon={icon}
+                      placeholder={placeholder}
+                      {...(type !== "checkbox" && {
+                        component: fieldMaps[type],
+                      })}
+                      // ...({type!=='checkbox' && {component: fieldMaps[type]}})
+                      // component={fieldMaps[type]}
+                    />
+                    {type === "checkbox" && (
+                      <label className={classes.label}>{label}</label>
+                    )}
+                  </Grid>
+                );
+              })}
+              <Grid item xs={12}>
+                <Button label={submitLabel} />
+                {/* <Button
                 type="submit"
                 variant="outlined"
                 size="large"
@@ -92,10 +105,11 @@ export default function Form({
               >
                 Submit
               </Button> */}
+              </Grid>
             </Grid>
-          </Grid>
-        </FormikForm>
-      )}
-    </Formik>
+          </FormikForm>
+        )}
+      </Formik>
+    </div>
   );
 }

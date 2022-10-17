@@ -1,10 +1,36 @@
 import * as React from "react";
 import { Container, Typography, Grid, Button, Box } from "@mui/material";
 import * as yup from "yup";
-import { Form } from "../../src/components";
-import { EmailOutlined } from "@mui/icons-material";
+import { Form, Layout } from "../../src/components";
+import { makeStyles } from "@mui/styles";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
-export default function signIn() {
+const useStyles = makeStyles((theme: any) => ({
+  formContainer: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+  },
+  forgetPassword: {
+    color: "rgb(41,121,252)",
+    marginTop: 20,
+    cursor: "pointer",
+    textDecoration: "none",
+  },
+  formTitle: {
+    fontSize: 35,
+    marginBottom: 30,
+    textAlign: "left",
+    width: "100%",
+  },
+}));
+
+const SignIn = () => {
+  const classes = useStyles();
+  const router = useRouter();
+  // const
   const validationSchema = yup.object().shape({
     name: yup.string().required("Required"),
     description: yup.string().required("Required"),
@@ -33,19 +59,33 @@ export default function signIn() {
       label: "I don't want to receive news and offers.",
       type: "checkbox",
       grid: { xs: 12 },
-      //   defaultValue: "33",
       icon: "lock",
     },
   ];
 
+  // const getPageContent = ()=>{
+
+  //   switch(){
+  //     case '':
+  //       return <OTPForm />
+  //   }
+  // }
+
   return (
-    <Container maxWidth="md">
+    <Layout>
       <Box mb={3} p={2}></Box>
-      <Form
-        submitLabel="Login"
-        formData={formData}
-        validationSchema={validationSchema}
-      />
-    </Container>
+      <div className={classes.formContainer}>
+        <p className={classes.formTitle}>Sign In</p>
+        <Form
+          submitLabel="Login"
+          formData={formData}
+          validationSchema={validationSchema}
+        />
+        <Link href="/signIn/otp">
+          <a className={classes.forgetPassword}>forget password</a>
+        </Link>
+      </div>
+    </Layout>
   );
-}
+};
+export default SignIn;

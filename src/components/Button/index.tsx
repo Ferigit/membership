@@ -14,6 +14,10 @@ const CustomButton = styled(Button)<ButtonProps>(({ theme }) => ({
   },
 }));
 
-export default function MUIButton({ label }: any) {
-  return <CustomButton variant="contained">{label}</CustomButton>;
+export default function MUIButton({ label, onClick }: any) {
+  return (
+    <CustomButton variant="contained" {...(onClick && { onClick })}>
+      {label}
+    </CustomButton>
+  );
 }
