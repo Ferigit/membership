@@ -10,6 +10,7 @@ import { CacheProvider, EmotionCache } from "@emotion/react";
 import createCache from "@emotion/cache";
 import useGlobalStyle from "../styles/useGlobalStyle.style";
 
+import "../styles/globals.css";
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };

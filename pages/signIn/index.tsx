@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { Container, Typography, Grid, Box } from "@mui/material";
 import * as yup from "yup";
 import { Form, Layout, Button } from "../../src/components";
@@ -8,6 +8,7 @@ import Link from "next/link";
 import { apiInstance } from "../../src/ApiInstance";
 import { setAuthorized } from "../../src/store/slices/userSlice";
 import { useDispatch, useSelector } from "../../src/store/store";
+import { toast } from "../../src/components/ToastProvider";
 
 const useStyles = makeStyles(
   {
@@ -60,6 +61,7 @@ const useStyles = makeStyles(
 const SignIn = () => {
   const classes = useStyles();
   const router = useRouter();
+  const [loading, setloading] = useState(false);
   const dispatch = useDispatch();
   const validationSchema = yup.object().shape({
     email: yup.string().required("Required").email("Email is not correct"),
@@ -68,12 +70,18 @@ const SignIn = () => {
 
   const handleSubmit = async (values: any) => {
     console.log("handleSubmit: ", values);
+    setloading(true);
     const res: any = await apiInstance("POST", "api/login", values);
     console.log("res: ", res);
-    if (res?.status === 200 && res?.data) {
+    if (res.status === 200) {
+      toast("success", "Success login", "emptyCompany");
       localStorage.setItem("token", res.data.token);
       dispatch(setAuthorized(res.data));
+      // setloading(false);
       router.push("/");
+    } else if (res.status === 400) {
+      toast("error", res?.data?.error, "emptyCompany");
+      setloading(false);
     }
   };
 
@@ -83,7 +91,6 @@ const SignIn = () => {
       placeholder: "Work Email",
       type: "text",
       grid: { xs: 12 },
-      // defaultValue: "12",
       icon: "email",
     },
     {
@@ -91,7 +98,6 @@ const SignIn = () => {
       placeholder: "Password",
       type: "password",
       grid: { xs: 12 },
-      // defaultValue: "33",
       icon: "lock",
     },
     {
@@ -103,14 +109,6 @@ const SignIn = () => {
       icon: "lock",
     },
   ];
-
-  // const getPageContent = ()=>{
-
-  //   switch(){
-  //     case '':
-  //       return <OTPForm />
-  //   }
-  // }
 
   return (
     <Layout>
@@ -148,6 +146,7 @@ const SignIn = () => {
           formData={formData}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
+          loading={loading}
         />
         <Link href="/signIn/otp">
           <a className={classes.forgetPassword}>forget password</a>

@@ -34,6 +34,7 @@ interface IProps {
   formData: any;
   submitLabel?: string;
   onSubmit?: any;
+  loading?: boolean;
 }
 
 export default function Form({
@@ -41,6 +42,7 @@ export default function Form({
   formData,
   submitLabel,
   onSubmit: submit,
+  loading,
 }: IProps) {
   const classes = useStyles();
 
@@ -103,16 +105,7 @@ export default function Form({
                 );
               })}
               <Grid item xs={12}>
-                <Button type="submit" label={submitLabel} />
-                {/* <Button
-                type="submit"
-                variant="outlined"
-                size="large"
-                color="primary"
-                disabled={formikProps.isSubmitting}
-              >
-                Submit
-              </Button> */}
+                <Button type="submit" loading={loading} label={submitLabel} />
               </Grid>
             </Grid>
           </FormikForm>

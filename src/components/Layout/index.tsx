@@ -1,6 +1,8 @@
 import { makeStyles } from "@mui/styles";
 import Sidebar from "./Sidebar";
 import AuthorizedSidebar from "./AuthorizedSidebar";
+import "react-toastify/dist/ReactToastify.min.css";
+import { ToastProvider } from "../../../src/components";
 
 const useStyles = makeStyles(
   (theme: any) => ({
@@ -34,6 +36,8 @@ const Layout = ({ children }: any) => {
   const authorized = false;
   return (
     <div className={classes.containerBox}>
+      <ToastProvider />
+
       <aside className={classes.sidebar}>
         {authorized ? <AuthorizedSidebar /> : <Sidebar />}
       </aside>
