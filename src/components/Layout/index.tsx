@@ -1,8 +1,12 @@
+import { useEffect, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import Sidebar from "./Sidebar";
 import AuthorizedSidebar from "./AuthorizedSidebar";
 import "react-toastify/dist/ReactToastify.min.css";
 import { ToastProvider } from "../../../src/components";
+import { useDispatch, useSelector } from "../../../src/store/store";
+import { getUserState } from "../../../src/store/slices/userSlice";
+import { setAuthorized } from "../../../src/store/slices/userSlice";
 
 const useStyles = makeStyles(
   (theme: any) => ({
@@ -33,13 +37,23 @@ const useStyles = makeStyles(
 
 const Layout = ({ children }: any) => {
   const classes = useStyles();
-  const authorized = false;
+  const dispatch = useDispatch();
+  const { authorizedUserData }: any = useSelector(getUserState);
+  useEffect(() => {
+    async function chechAuth() {
+      const isAuthorized: any = await localStorage.getItem("token");
+      if (!!localStorage.getItem("token"))
+        dispatch(setAuthorized(isAuthorized));
+    }
+    chechAuth();
+  }, [authorizedUserData]);
+  console.log("authorizedUserData: ", authorizedUserData);
   return (
     <div className={classes.containerBox}>
       <ToastProvider />
 
       <aside className={classes.sidebar}>
-        {authorized ? <AuthorizedSidebar /> : <Sidebar />}
+        {authorizedUserData ? <AuthorizedSidebar /> : <Sidebar />}
       </aside>
       <main className={classes.mainBox}>{children}</main>
     </div>

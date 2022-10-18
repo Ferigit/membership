@@ -24,6 +24,7 @@ const useStyles = makeStyles(
     containerBox: {
       height: "100%",
       background: "#fff",
+      borderRight: "1px solid #eee",
     },
     menu: {
       display: "flex",

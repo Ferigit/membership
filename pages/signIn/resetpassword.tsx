@@ -99,7 +99,6 @@ const ResetPassword = () => {
           formData={formData}
           validationSchema={validationSchema}
         />
-        {/* <Button label="Confirm" /> */}
       </div>
     </Layout>
   );

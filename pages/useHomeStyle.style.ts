@@ -23,6 +23,13 @@ const useHomeStyleStyle = makeStyles(
       justifyContent: "start",
       alignItems: "center",
     },
+    viewDetal: {
+      width: 100,
+      height: 37,
+    },
+    postsTable: {
+      // padding: 20,
+    },
   }),
   {
     name: "useStatusBarStyle",

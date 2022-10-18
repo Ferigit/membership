@@ -2,6 +2,14 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
+## test fake api : https://reqres.in/
+
+```
+correct user pass:
+email:eve.holt@reqres.in
+pass:cityslicka
+```
+
 First, run the development server:
 
 ```bash
