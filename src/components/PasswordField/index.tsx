@@ -10,29 +10,34 @@ import { Visibility, VisibilityOff, LockOutlined } from "@mui/icons-material";
 
 import { makeStyles } from "@mui/styles";
 
-const useStyles1 = makeStyles((theme: any) => ({
-  root: {
-    width: "300px",
-    borderRadius: 8,
-    marginLeft: "auto",
-    marginRight: "auto",
-    background: "rgb(244,244,244)",
-    "& label": {
-      //& label.Mui-focused
-      fontSize: 12,
+const useStyles = makeStyles(
+  (theme: any) => ({
+    root: {
+      width: "300px",
+      borderRadius: 8,
+      marginLeft: "auto",
+      marginRight: "auto",
+      background: "rgb(244,244,244)",
+      "& label": {
+        //& label.Mui-focused
+        fontSize: 12,
+      },
+      "& fieldset": {
+        border: "none",
+      },
     },
-    "& fieldset": {
-      border: "none",
+    input: {
+      height: 43,
+      paddingLeft: 0,
     },
-  },
-  input: {
-    height: 43,
-    paddingLeft: 0,
-  },
-}));
+  }),
+  {
+    name: "PasswordFieldStyle",
+  }
+);
 
 export default function PasswordField(props: any) {
-  const classes = useStyles1();
+  const classes = useStyles();
   const isTouched = getIn(props.form.touched, props.field.name);
   const errorMessage = getIn(props.form.errors, props.field.name);
   const { error, helperText, field, form, icon, ...rest } = props;

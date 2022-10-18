@@ -8,14 +8,19 @@ import {
   InputAdornment,
   Checkbox,
 } from "@mui/material";
-const useStyles2 = makeStyles((theme: any) => ({
-  label: {
-    fontSize: 14,
+const useStyles = makeStyles(
+  {
+    label: {
+      fontSize: 14,
+    },
   },
-}));
+  {
+    name: "CheckBoxFieldStyle",
+  }
+);
 
 export default function CheckBoxField(props: any) {
-  const classes = useStyles2();
+  const classes = useStyles();
 
   const isTouched = getIn(props.form.touched, props.field.name);
   const errorMessage = getIn(props.form.errors, props.field.name);

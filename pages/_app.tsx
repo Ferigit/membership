@@ -1,41 +1,14 @@
-// import "../styles/globals.css";
-// import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { store } from "../src/store/store";
-// import { CacheProvider, EmotionCache } from "@emotion/react";
 import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
-
-// import createEmotionCache from "../src/utility/createEmotionCache";
+import { useEffect } from "react";
 import lightThemeOptions from "../styles/theme/lightThemeOptions";
-// import "../styles/globals.css";
-// interface MyAppProps extends AppProps {
-//   emotionCache?: EmotionCache;
-// }
-
-// const clientSideEmotionCache = createEmotionCache();
-
-// function MyApp({
-//   Component,
-//   pageProps,
-//   emotionCache = clientSideEmotionCache,
-// }: MyAppProps) {
-//   return (
-//     <ThemeProvider theme={lightTheme}>
-//       <CssBaseline />
-//       <Provider store={store}>
-//         <Component {...pageProps} />
-//       </Provider>
-//     </ThemeProvider>
-//   );
-// }
-
-// export default MyApp;
-
 import type { ReactElement, ReactNode } from "react";
 import type { NextPage } from "next";
 import type { AppProps } from "next/app";
 import { CacheProvider, EmotionCache } from "@emotion/react";
 import createCache from "@emotion/cache";
+import useGlobalStyle from "../styles/useGlobalStyle.style";
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -52,8 +25,14 @@ const MyApp = ({
   pageProps,
   emotionCache = clientSideEmotionCache,
 }: AppPropsWithLayout) => {
+  // useGlobalStyle();
   const lightTheme = createTheme(lightThemeOptions);
-
+  useEffect(() => {
+    const jssStyles: any = document.querySelector("#jss-server-side");
+    if (jssStyles) {
+      jssStyles.parentElement.removeChild(jssStyles);
+    }
+  }, []);
   // Use the layout defined at the page level, if available
   const getLayout = Component.getLayout ?? ((page) => page);
 
@@ -68,4 +47,11 @@ const MyApp = ({
     </Provider>
   );
 };
+MyApp.getInitialProps = async ({ Component, ctx }: any) => ({
+  pageProps: {
+    ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
+    pathname: ctx.pathname,
+  },
+});
+
 export default MyApp;

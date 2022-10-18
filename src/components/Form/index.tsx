@@ -10,15 +10,20 @@ import {
 import { TextField, PasswordField, Button, CheckBoxField } from "../index";
 import { makeStyles } from "@mui/styles";
 
-const useStyles = makeStyles((theme: any) => ({
-  label: {
-    fontSize: 14,
-    marginLeft: 4,
+const useStyles = makeStyles(
+  {
+    label: {
+      fontSize: 14,
+      marginLeft: 4,
+    },
+    formContainer: {
+      width: 300,
+    },
   },
-  formContainer: {
-    width: 300,
-  },
-}));
+  {
+    name: "FormStyle",
+  }
+);
 
 interface FormValues {
   name: string;
@@ -28,12 +33,14 @@ interface IProps {
   validationSchema: any;
   formData: any;
   submitLabel?: string;
+  onSubmit?: any;
 }
 
 export default function Form({
   validationSchema,
   formData,
   submitLabel,
+  onSubmit: submit,
 }: IProps) {
   const classes = useStyles();
 
@@ -57,8 +64,9 @@ export default function Form({
           values: FormValues,
           formikHelpers: FormikHelpers<FormValues>
         ) => {
-          alert(JSON.stringify(values, null, 2));
-          formikHelpers.setSubmitting(false);
+          // alert(JSON.stringify(values, null, 2));
+          submit(values);
+          // formikHelpers.setSubmitting(false);
         }}
       >
         {(formikProps: FormikProps<FormValues>) => (
@@ -95,7 +103,7 @@ export default function Form({
                 );
               })}
               <Grid item xs={12}>
-                <Button label={submitLabel} />
+                <Button type="submit" label={submitLabel} />
                 {/* <Button
                 type="submit"
                 variant="outlined"

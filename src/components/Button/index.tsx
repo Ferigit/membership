@@ -5,18 +5,32 @@ import { purple } from "@mui/material/colors";
 
 const CustomButton = styled(Button)<ButtonProps>(({ theme }) => ({
   width: "300px",
-  color: "#fff", //theme.palette.getContrastText(purple[500]),
-  backgroundColor: "rgb(41,121,252)",
+  color: "#fff",
   height: 42,
   borderRadius: 8,
-  "&:hover": {
-    // backgroundColor: purple[700],
-  },
+  "&:hover": {},
 }));
 
-export default function MUIButton({ label, onClick }: any) {
+export default function MUIButton({
+  label,
+  onClick,
+  type,
+  variant = "contained",
+  icon,
+  className,
+}: any) {
   return (
-    <CustomButton variant="contained" {...(onClick && { onClick })}>
+    <CustomButton
+      startIcon={icon && icon}
+      variant={variant}
+      style={{
+        backgroundColor: variant === "contained" ? "rgb(41,121,252)" : "#fff",
+        color: variant !== "contained" ? "rgb(41,121,252)" : "#fff",
+      }}
+      className={className}
+      {...(type && { type })}
+      {...(onClick && { onClick })}
+    >
       {label}
     </CustomButton>
   );

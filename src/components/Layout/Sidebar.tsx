@@ -1,42 +1,47 @@
 import { makeStyles } from "@mui/styles";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-const useStyles = makeStyles((theme: any) => ({
-  containerBox: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "column",
-  },
-  logo: {
-    width: 100,
-    marginTop: 80,
-  },
-  city: {
-    width: 150,
-    marginTop: 100,
-  },
-  accountName: {
-    fontSize: 26,
-    marginBottom: 40,
-    marginTop: 40,
-  },
-  row: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    "& span": {
-      marginLeft: 5,
+const useStyles = makeStyles(
+  (theme: any) => ({
+    containerBox: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      flexDirection: "column",
     },
-    marginBottom: 20,
-  },
-  rowContainer: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "start",
-    flexDirection: "column",
-  },
-}));
+    logo: {
+      width: 100,
+      marginTop: 80,
+    },
+    city: {
+      width: 150,
+      marginTop: 100,
+    },
+    accountName: {
+      fontSize: 26,
+      marginBottom: 40,
+      marginTop: 40,
+    },
+    row: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      "& span": {
+        marginLeft: 5,
+      },
+      marginBottom: 20,
+    },
+    rowContainer: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "start",
+      flexDirection: "column",
+    },
+  }),
+  {
+    name: "SidebarStyle",
+  }
+);
 
 const Sidebar = ({ children }: any) => {
   const classes = useStyles();
